@@ -1,0 +1,259 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youth Foundation</title>
+
+    <style>
+        /* Global background */
+        body {
+            background-color: #005B2B; /* Shiny Royal Green */
+            color: white;  /* Change text color to white */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header section (first block) */
+        header {
+            background-image: url("{% static 'Background.jpg' %}"); /* Set Background.jpg as the header background */
+            background-size: cover;
+            background-position: center;
+            color: white;  /* Ensure text inside header is white */
+            padding: 80px 20px;  /* Reduced padding */
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header img {
+            height: 50px; /* Adjusted logo size */
+            width: auto;
+            position: absolute;
+            top: 20px;  /* Adjust to place logo at the top-left corner */
+            left: 20px;
+            animation: slideInFromLeft 2s ease-in-out;
+        }
+
+        header h1 {
+            font-size: 2em; /* Reduced font size */
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        nav {
+            margin-top: 15px;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        nav a {
+            color: rgb(142, 184, 233);
+            padding: 15px;
+            font-size: 1.2em; /* Reduced font size for navigation links */
+            text-decoration: none;
+            display: inline-block;
+            animation: fadeInUp 3s ease-in-out;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Styles for the mission blocks */
+        .mission-blocks {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Three columns */
+            gap: 30px;
+            padding: 20px;
+            grid-template-rows: auto; /* Make sure the rows adjust as needed */
+        }
+
+        .mission-block {
+            background-color: #2E8B57; /* Default Green for the blocks */
+            padding: 30px; /* Reduced padding */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            color: white; /* Ensure text inside the mission block is white */
+            cursor: pointer;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 2s ease-in-out forwards;
+        }
+
+        .mission-block:hover {
+            transform: scale(1.05); /* Slightly increase the size of the block */
+            background-color: #388E3C; /* Slightly darker green when hovered */
+        }
+
+        .mission-block h3 {
+            font-size: 1.8em; /* Reduced font size */
+            margin: 15px 0;
+        }
+
+        .mission-block p {
+            font-size: 1.2em; /* Reduced font size */
+        }
+
+        /* Position Mission 5 in the middle under Mission 3 and Mission 4 */
+        .mission-block:last-child {
+            grid-column: span 2; /* Make Mission 5 span across two columns */
+        }
+
+        /* Center the Empowering Youth section */
+        h2 {
+            text-align: center;
+            font-size: 2.2em; /* Reduced font size */
+            margin-top: 40px;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        /* Programs block section at the bottom (without the rectangular block) */
+        .programs-block {
+            background-color: transparent; /* Remove the background */
+            padding: 0; /* Remove the padding */
+            text-align: center;
+            margin: 60px 0;
+            transition: transform 0.3s ease; /* Keep smooth transition for scaling */
+            opacity: 0;
+            animation: fadeInUp 2.5s ease-in-out forwards;
+        }
+
+        /* Style for the link inside the program block */
+        .programs-block a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.4em; /* Reduced font size */
+            padding: 15px 30px; /* Reduced padding */
+            background-color: #004D40; /* Darker blue-green for the button */
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center; /* Align text and icon */
+            transition: background-color 0.3s ease; /* Smooth transition for button color */
+        }
+
+        /* Add an arrow to the right of the link */
+        .programs-block a::after {
+            content: ' →'; /* Arrow symbol */
+            font-size: 1.5em; /* Reduced font size */
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover effect for the link */
+        .programs-block a:hover {
+            background-color: #00796B; /* Lighter blue-green on hover */
+        }
+
+        /* Hover effect for the block */
+        .programs-block:hover {
+            transform: scale(1.05); /* Slightly increase the size of the block when hovered */
+        }
+
+        /* Contact Us section */
+        .contact-section {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #003824; /* Darker green background */
+            border-radius: 10px;
+            margin: 40px 20px;
+        }
+
+        .contact-section h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+        }
+
+        /* Keyframes for animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInFromLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            .mission-blocks {
+                grid-template-columns: 1fr 1fr; /* Two columns on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mission-blocks {
+                grid-template-columns: 1fr; /* Single column on very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Logo -->
+        <img src="Background.jpg" 
+        width="300px" height="200x">
+        <h1>Welcome to MDON Youth Progressive Foundation</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/programs/">Programs</a>
+            <a href="/contact/">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Centered Empowering Youth text -->
+        <h2>Empowering the youth through various initiatives.</h2>
+
+        <p style="font-size: 1.2em; animation: fadeInUp 3s ease-in-out;">The primary mission of our foundation is to empower and uplift the less privileged, particularly the youth of Nigeria, by promoting political education and social responsibility. We aim to raise political awareness among young people aged 16-35, helping them understand their role in shaping their communities and their nation’s future through informed participation.</p>
+
+        <p style="font-size: 1.2em; animation: fadeInUp 3.2s ease-in-out;">Additionally, our foundation is dedicated to addressing the educational challenges faced by out-of-school children in Northern Nigeria. We will provide educational support, resources, and advocacy to emphasize the critical importance of education in transforming lives and communities. We strongly believe that access to education is essential for breaking the cycle of poverty, reducing insecurity, and fostering long-term socio-economic growth.</p>
+
+        <p style="font-size: 1.2em; animation: fadeInUp 3.4s ease-in-out;">As a secondary priority, our foundation is committed to supporting internally displaced persons (IDPs), particularly in conflict-affected areas such as Borno State and other regions of Northern Nigeria impacted by insurgency. Through our charity programs, we will provide essential aid, including food, clothing, shelter, and other critical necessities to improve the living conditions of displaced families. Furthermore, we will educate IDPs and their communities on the importance of sending children to school, stressing how education can transform lives and help build a better future for their children and communities.</p>
+            
+        <p style="font-size: 1.2em; animation: fadeInUp 3.6s ease-in-out;">In addition, our foundation recognizes the vital role of orphanages in providing care and support to vulnerable children. We will extend our charity programs to orphanages across all 36 states, including the Federal Capital Territory (FCT). These programs will provide essential supplies such as food, clothing, educational materials, and emotional support to help these children thrive and achieve their full potential.</p>
+            
+        <p style="font-size: 1.2em; animation: fadeInUp 3.8s ease-in-out;">By addressing both the political and educational needs of youth, as well as the humanitarian needs of displaced families and orphaned children, our foundation seeks to make a lasting impact in Northern Nigeria. Through our comprehensive approach, we aim to create pathways to a brighter, more secure future for all, where every child has the opportunity to succeed, In'shaa'Allah.</p>
+
+
+        <!-- Programs Link Block at the Bottom -->
+        <div class="programs-block">
+            <a href="/programs/">View Our Programs</a>
+        </div>
+
+        <!-- Contact Us Section -->
+        <div class="contact-section">
+            <h3>Contact Us</h3>
+            <p>Reach out to our dedicated team for any inquiries, assistance, or information you need.</p>
+            <div class="contact-info">
+                <p><i class="fa fa-envelope"></i> Email: info@mdonyouthprogressivefoundation@gmail.com</p>
+                <p><i class="fa fa-map-marker"></i> Location: COMING SOON</p>
+                <p><i class="fa fa-phone"></i> Phone: +234-812-203-0576|+234-818-713-4987|+234-912-238-5367</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

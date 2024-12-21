@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs</title>
+    <style>
+        /* Global background to match homepage */
+        body {
+            background-color: #005B2B; /* Shiny Royal Green */
+            color: white;  /* Change text color to white */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header section */
+        header {
+            background-image: url("{% static 'Background.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3em; /* Larger font size for the title */
+            margin-top: 20px;
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav a {
+            color: rgb(142, 184, 233);
+            padding: 15px;
+            font-size: 1.2em; /* Larger font size for navigation links */
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mission blocks section (stacked vertically) */
+        .mission-blocks {
+            padding: 20px;
+        }
+
+        .mission-block {
+            background-color: #2E8B57;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: white;
+            margin-bottom: 30px; /* More space between blocks */
+        }
+
+        .mission-block h3 {
+            font-size: 2em; /* Larger font size for mission block titles */
+            margin: 15px 0;
+        }
+
+        .mission-block p {
+            font-size: 1.2em; /* Larger font size for mission block paragraphs */
+        }
+
+        /* Programs container styles */
+        .programs-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .program-block {
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            padding: 30px;
+            width: 320px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .program-block h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 2em; /* Larger font size for program titles */
+        }
+
+        .program-block p {
+            color: #555;
+            font-size: 1.2em; /* Larger font size for program descriptions */
+        }
+
+        .program-block strong {
+            color: #333;
+            font-size: 1.2em; /* Larger font size for strong elements */
+        }
+
+        /* Center the "Upcoming Programs" heading */
+        h2 {
+            text-align: center;
+            font-size: 2.5em; /* Larger font size for the subtitle */
+            margin-top: 40px;
+            margin-bottom: 50px;
+        }
+
+        /* Slide-in animation */
+        @keyframes slideInFromLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-slide {
+            animation: slideInFromLeft 0.5s ease-out forwards; /* Added 'forwards' to maintain final state */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Our Youth Programs</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/programs/">Programs</a>
+            <a href="/contact/">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Upcoming Programs</h2>
+
+        <!-- Mission Blocks Section (Stacked order) -->
+        <div class="mission-blocks">
+            {% for feature in features %}
+                <div class="mission-block">
+                    <h3>{{ feature.name }}</h3>
+                    <p>{{ feature.details }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Programs Section -->
+        <div class="programs-container">
+            {% for program in programs %}
+                <div class="program-block">
+                    <h3>{{ program.name }}</h3>
+                    <p>{{ program.description }}</p>
+                    <p><strong>Location:</strong> {{ program.location }}</p>
+                    <p><strong>Contact:</strong> <a href="mailto:{{ program.contact_email }}">{{ program.contact_email }}</a></p>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <script>
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+
+                // Get the main content container
+                const mainContent = document.querySelector('main');
+
+                // Remove any existing animation class
+                mainContent.classList.remove('animate-slide');
+
+                // Trigger reflow to restart the animation
+                void mainContent.offsetWidth;
+
+                // Add the animation class
+                mainContent.classList.add('animate-slide');
+
+                // Redirect after animation completes
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 500); // Match the duration of the animation
+            });
+        });
+    </script>
+</body>
+</html>
